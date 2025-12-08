@@ -1,0 +1,380 @@
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+}
+
+h1 {
+  margin: 0 0 2rem 0;
+  color: #333;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* 필터 영역 */
+.filter-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-select {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* 할일 추가 영역 */
+.todo-input-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.todo-input {
+  flex: 2;
+  min-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.todo-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.priority-select,
+.date-input {
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.priority-select:focus,
+.date-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.add-button {
+  padding: 0.75rem 1.5rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.add-button:hover {
+  background: #5568d3;
+}
+
+.add-button:active {
+  transform: scale(0.98);
+}
+
+/* 할일 목록 */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-item {
+  margin-bottom: 0.75rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+.todo-item.completed {
+  opacity: 0.7;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.todo-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: background 0.3s;
+  gap: 1rem;
+}
+
+.todo-content:hover {
+  background: #e9ecef;
+}
+
+.todo-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todo-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #667eea;
+}
+
+.todo-title {
+  flex: 1;
+  color: #333;
+  font-size: 1rem;
+  word-break: break-word;
+  min-width: 100px;
+}
+
+.todo-title.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.priority-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.todo-due-date {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-left: 2rem;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* 버튼 스타일 */
+.edit-button,
+.delete-button,
+.save-button,
+.cancel-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.edit-button {
+  background: #17a2b8;
+  color: white;
+}
+
+.edit-button:hover {
+  background: #138496;
+}
+
+.delete-button {
+  background: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background: #c82333;
+}
+
+.save-button {
+  background: #28a745;
+  color: white;
+}
+
+.save-button:hover {
+  background: #218838;
+}
+
+.cancel-button {
+  background: #6c757d;
+  color: white;
+}
+
+.cancel-button:hover {
+  background: #5a6268;
+}
+
+/* 수정 모드 */
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #fff3cd;
+  border-radius: 8px;
+  border: 2px solid #ffc107;
+}
+
+.edit-input {
+  padding: 0.75rem;
+  border: 2px solid #ffc107;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.edit-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-priority-select,
+.edit-date-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 2px solid #ffc107;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+  cursor: pointer;
+}
+
+.edit-priority-select:focus,
+.edit-date-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+/* 빈 목록 메시지 */
+.empty-message {
+  text-align: center;
+  color: #6c757d;
+  padding: 3rem 1rem;
+  font-size: 1.1rem;
+}
+
+/* 로딩 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 640px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .container {
+    padding: 1.5rem;
+  }
+
+  .filter-container {
+    flex-direction: column;
+  }
+
+  .todo-input-container {
+    flex-direction: column;
+  }
+
+  .todo-input,
+  .priority-select,
+  .date-input {
+    width: 100%;
+  }
+
+  .add-button {
+    width: 100%;
+  }
+
+  .todo-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .todo-header {
+    width: 100%;
+  }
+
+  .todo-due-date {
+    margin-left: 0;
+  }
+
+  .todo-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .edit-button,
+  .delete-button {
+    flex: 1;
+  }
+
+  .edit-controls {
+    flex-direction: column;
+  }
+}
