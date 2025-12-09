@@ -13,11 +13,14 @@ function App() {
   const [editingPriority, setEditingPriority] = useState('low')
   const [editingDueDate, setEditingDueDate] = useState('')
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [filterCompleted, setFilterCompleted] = useState('')
   const [filterPriority, setFilterPriority] = useState('')
 
   // 할일 목록 조회
   const fetchTodos = async () => {
+    setLoading(true)
+    setError(null)
     try {
       const params = new URLSearchParams()
       if (filterCompleted !== '') {
@@ -31,15 +34,28 @@ function App() {
       const url = `${API_BASE_URL}/todos${queryString ? `?${queryString}` : ''}`
       
       const response = await fetch(url)
+      
+      // 응답이 JSON인지 확인
+      const contentType = response.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('서버가 JSON 형식의 응답을 반환하지 않았습니다.')
+      }
+      
       const result = await response.json()
       
       if (response.ok && result.success) {
         setTodos(result.data || [])
+        setError(null)
       } else {
-        console.error('할일 목록 조회 실패:', result.message || '알 수 없는 오류')
+        const errorMessage = result.message || '할일 목록을 불러오는데 실패했습니다.'
+        setError(errorMessage)
+        console.error('할일 목록 조회 실패:', errorMessage)
       }
     } catch (error) {
+      const errorMessage = error.message || '서버에 연결할 수 없습니다. 백엔드 서버가 실행 중인지 확인해주세요.'
+      setError(errorMessage)
       console.error('할일 목록 조회 실패:', error)
+      setTodos([]) // 에러 발생 시 빈 배열로 설정
     } finally {
       setLoading(false)
     }
@@ -250,6 +266,34 @@ function App() {
     <div className="app">
       <div className="container">
         <h1>할일 목록</h1>
+        
+        {/* 에러 메시지 표시 */}
+        {error && (
+          <div className="error-message" style={{
+            padding: '12px',
+            marginBottom: '16px',
+            backgroundColor: '#fee',
+            border: '1px solid #fcc',
+            borderRadius: '4px',
+            color: '#c33'
+          }}>
+            <strong>오류:</strong> {error}
+            <button 
+              onClick={() => fetchTodos()} 
+              style={{
+                marginLeft: '12px',
+                padding: '4px 12px',
+                backgroundColor: '#c33',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              다시 시도
+            </button>
+          </div>
+        )}
 
         {/* 필터 영역 */}
         <div className="filter-container">
